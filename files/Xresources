@@ -1,0 +1,66 @@
+URxvt.perl-ext-common: font-size
+
+URxvt.keysym.C-Up: font-size:increase
+URxvt.keysym.C-Down: font-size:decrease
+URxvt.keysym.C-equal: font-size:reset
+URxvt.keysym.C-slash: font-size:show
+
+URxvt.keysym.C-BackSpace: \033[33~
+
+URxvt*background: rgb:17/17/17
+URxvt*foreground: rgb:ff/ff/ff
+URxvt*font: xft:Liberation Mono:size=12
+URxvt*scrollBar: false
+
+URxvt*urlLauncher: qutebrowser
+
+URxvt*secondaryScreen: 1
+URxvt*secondaryScroll: 0
+URxvt*secondaryWheel: 1
+
+URxvt*scrollTtyOutput: false
+URxvt*scrollWithBuffer: true
+URxvt*scrollTtyKeypress: true
+
+!URxvt*dynamicColors: on
+URxvt*transparent: true
+URxvt*shading: 20
+
+! Monokai
+! special
+*.foreground:   #d1d1d1
+! *.background:   #221e2d
+*.cursorColor:  #d1d1d1
+! black
+*.color0:       #272822
+*.color8:       #75715e
+! red
+*.color1:       #f92672
+*.color9:       #f92672
+! green (username)
+*.color2:       #76f22e
+*.color10:      #a6e22e
+! yellow
+*.color3:       #f4bf75
+*.color11:      #f4bf75
+! blue
+*.color4:       #66d9ef
+! dark blue (dirs)
+*.color12:      #4394ef
+! magenta
+*.color5:       #ae81ff
+*.color13:      #ae81ff
+! cyan
+*.color6:       #a1efe4
+*.color14:      #a1efe4
+! white
+*.color7:       #f8f8f2
+*.color15:      #f9f8f5
+
+
+XTerm*background: rgb:17/17/17
+XTerm*foreground: rgb:ff/ff/ff
+XTerm*faceName: xft:Liberation Mono:size=12
+XTerm*termName: xterm-256color
+!XTerm*scrollTtyOutput: false
+!XTerm*font: 7x13
