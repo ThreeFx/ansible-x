@@ -1,0 +1,28 @@
+#!/bin/bash
+
+urxvtd -f
+
+/home/bfiedler/.bin/screen.sh left
+
+redshift &
+
+feh --bg-fill --randomize wallpaper/current/
+
+/home/bfiedler/.bin/keyboardlayout.sh
+/home/bfiedler/.bin/manage-lock.sh enable-autolock
+
+xsetroot -cursor_name left_ptr
+
+compton -b
+
+eval $(gnome-keyring-daemon --start --components=ssh,gpg)
+export GPG_AGENT_INFO SSH_AUTH_SOCK
+
+trayer --height 20 --tint 0x000000FF --widthtype request \
+       --expand true --alpha 256 --transparent true \
+       --SetDockType true --SetPartialStrut true &
+
+synology-cloud-station-drive &
+synology-cloud-station-backup &
+
+exec /etc/X11/Sessions/xmonad

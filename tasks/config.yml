@@ -1,0 +1,22 @@
+---
+- name: Configure xmonad
+  copy:
+    src: "xmonad/"
+    dest: "{{ home_dir }}/.xmonad"
+    owner: "{{ x_username }}"
+    group: "{{ x_username }}"
+
+- name: Configure redshift
+  copy:
+    src: "config/redshift.conf.j2"
+    dest: "{{ home_dir }}/.config/redshift.conf"
+    owner: "{{ x_username }}"
+    group: "{{ x_username }}"
+
+- name: Configure X session
+  copy:
+    src: "xsession.j2"
+    dest: "{{ home_dir }}/.xsession"
+    owner: "{{ x_username }}"
+    group: "{{ x_username }}"
+    mode: 0700

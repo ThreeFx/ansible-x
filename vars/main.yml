@@ -1,0 +1,13 @@
+---
+x_packages:
+  - libghc-xmonad-contrib-dev
+  - libghc-xmonad-dev
+  - lightdm
+  - redshift
+  - rvxt-unicode
+  - xmonad
+  - xmobar
+
+x_repositories: []
+
+home_dir: "/home/{{ x_username }}"

@@ -1,0 +1,27 @@
+---
+- name: Add default base signing keys
+  become: True
+  apt_key:
+    file: "keys/{{ item.key }}"
+    state: present
+  with_items: "{{ x_repositories + x_extra_repositories }}"
+
+- name: Add default apt repositories
+  become: True
+  apt_repository:
+    repo: "{{ item.repo }}"
+    state: present
+  with_items: "{{ x_repositories + x_extra_repositories }}"
+
+- name: Update package index and install apt packages
+  become: True
+  apt:
+    pkg: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items: "{{ x_packages + x_extra_packages }}"
+
+- name: Configure X setup
+  include_tasks: config.yml
+  tags:
+    - config
