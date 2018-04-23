@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# turn disconnected outputs off
+for screen in $(xrandr | grep disconnected | sed 's|^\([^ ]*\).*$|\1|g')
+do
+    xrandr --output $screen --off
+done
+
+EXT=`xrandr --current | sed 's/^\(.*\) connected.*$/\1/p;d' | grep -v ^eDP | head -n 1`
+INT=`xrandr --current | sed 's/^\(.*\) connected.*$/\1/p;d' | grep -v ^DP | grep -v ^HDMI | head -n 1`
+
+if [[ $EXT ]]; then
+    xrandr --output $EXT --auto --primary
+    case "$1" in
+        left)
+            xrandr --output $INT --right-of $EXT
+            ;;
+        right)
+            xrandr --output $INT --left-of $EXT
+            ;;
+        up)
+            xrandr --output $INT --below $EXT
+            ;;
+        down)
+            xrandr --output $INT --above $EXT
+            ;;
+        off)
+            xrandr --output $EXT --off
+    esac
+else
+    echo 'no screen connected'
+fi
+
+~/.bin/change-wallpaper.sh
+#i3-msg restart

@@ -1,0 +1,77 @@
+#!/bin/bash
+ACTION=$1
+
+set -e
+
+#CURSINK=`pactl list sinks short | grep RUNNING | egrep -o '^[0-9]+'`
+CURSINK=0
+CURVOL=`pactl list sinks | grep -i '^\svolume' | awk -F ' ' '{print $5}' | awk -F '%' '{print $1}' | head -1`
+MUTE=`pactl list sinks | grep -i '^\smute' | egrep -o '[a-z]+$' | head -1`
+
+#declare -i CURVOL=`cat ~/.volume/volume` #Reads in the current volume
+if [[ $ACTION == "reset" ]]; then
+  CURVOL=0
+  pactl set-sink-mute $CURSINK 0
+  pactl set-sink-volume $CURSINK $CURVOL
+fi
+
+if [[ $ACTION == "show" ]]; then
+    if [[ $MUTE == "yes" ]]; then
+        echo $CURVOL "(Muted)"
+    else
+        echo $CURVOL
+    fi
+fi
+
+if [[ $ACTION == "showfancy" ]]; then
+    if [[ $MUTE == "yes" ]]; then
+        echo " $CURVOL"
+    else
+        echo " $CURVOL"
+    fi
+fi
+
+if [[ $ACTION == "increase" ]]; then
+  pactl set-sink-mute $CURSINK 0
+  CURVOL=$(($CURVOL + 5))
+fi
+
+if [[ $ACTION == "decrease" ]]; then
+  CURVOL=$(($CURVOL - 5))
+fi
+
+if [[ $ACTION == "incsmall" ]]; then
+  pactl set-sink-mute $CURSINK 0
+  CURVOL=$(($CURVOL + 1))
+fi
+
+if [[ $ACTION == "decsmall" ]]; then
+  CURVOL=$(($CURVOL - 1))
+fi
+
+
+if [[ $CURVOL -ge 120 ]]; then
+    CURVOL=120
+fi
+
+if [[ $CURVOL -le 0 ]]; then
+    CURVOl=0
+fi
+
+pactl set-sink-volume $CURSINK $CURVOL%
+
+if [[ $ACTION == "toggle" ]]; then
+  if [ $MUTE = 'yes' ]; then
+    ACTION=unmute
+  else
+    ACTION=mute
+  fi
+fi
+
+if [[ $ACTION == "mute" ]]; then
+  pactl set-sink-mute $CURSINK 1
+fi
+
+if [[ $ACTION == "unmute" ]]; then
+  pactl set-sink-mute $CURSINK 0
+fi
