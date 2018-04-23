@@ -1,0 +1,53 @@
+Config { font                = "xft:LiberationMono:size=10"
+       , borderColor         = "black"
+       , border              = TopB
+       , bgColor             = "black"
+       , fgColor             = "grey"
+       , position            = BottomW L 100
+
+       , lowerOnStart        = False
+       , allDesktops         = True
+       , persistent          = True
+       , overrideRedirect    = False
+
+       , sepChar             = "&"
+       , alignSep            = "}{"
+       , template            = " &multicpu& | &disku& | RAM: &memory& | SWP: &swap& | &dynnetwork& }{ bkp: &backup& | ~/private: &drive& | lck: &autolock& | rsh: &redshift& | vol: &volume& | wifi: &net& (&ip&){% if x_has_battery %} | &battery&{% endif %} "
+       , commands =
+           [ Run MultiCpu   [ "--template", "CPU: <total0>%|<total1>%|<total2>%|<total3>%"
+                            , "-L", "3"
+                            , "-H", "50"
+                            , "--normal", "green"
+                            , "--high", "red"
+                            , "-m", "2"
+                            ] 50
+           , Run Memory     [ "-t","<used>M" ] 50
+           , Run Swap       [ "-t", "<used>M" ] 50
+           , Run DynNetwork [ "--template", "<dev>: <tx>kB/s|<rx>kB/s"
+                            , "-m", "1"
+                            ] 30
+           , Run DiskU      [("/", "/: <used>/<size>")]
+                            [ "-L", "50"
+                            , "-H", "70"
+                            , "--low", "green"
+                            , "--normal", "yellow"
+                            , "--high", "red"
+                            , "-m", "1"
+                            , "-p", "3"
+                            ] 600
+           , Run Com ".bin/pulse-volume.sh" ["show"] "volume" 50
+{% if x_has_battery %}
+           , Run Battery ["-t", "<left>% (<timeleft>)"] 600
+{% endif %}
+           -- for eth0 or wlp58s0
+           , Run Com ".bin/network.sh" ["-s"] "net" 100
+           , Run Com ".bin/network.sh" ["-ip"] "ip" 100
+
+           , Run Com ".bin/check.sh" ["cloud-backup-daemon", "conn", "dis"] "backup" 100
+           , Run Com ".bin/check.sh" ["cloud-drive-daemon", "conn", "dis"] "drive" 100
+           , Run Com ".bin/check.sh" ["redshift", "on", "off"] "redshift" 100
+           , Run Com ".bin/check.sh" ["xautolock", "on", "off"] "autolock" 100
+           --, Run Mpris2 "spotify" ["-t", "<title> - <artist>"] 15
+           , Run StdinReader
+           ]
+       }

@@ -1,0 +1,257 @@
+import           XMonad                          hiding (none)
+
+import           XMonad.Actions.FloatKeys
+import           XMonad.Actions.Search
+import           XMonad.Actions.SpawnOn
+
+import           XMonad.Hooks.DynamicLog
+import           XMonad.Hooks.EwmhDesktops
+import           XMonad.Hooks.ManageDocks
+import           XMonad.Hooks.ManageHelpers
+-- layouting stuff
+import           XMonad.Layout.Drawer
+import           XMonad.Layout.FixedColumn
+import           XMonad.Layout.Grid
+import           XMonad.Layout.IfMax
+import qualified XMonad.Layout.IndependentScreens as LIS
+import           XMonad.Layout.Master
+import           XMonad.Layout.NoBorders
+import           XMonad.Layout.Reflect
+import           XMonad.Layout.ResizableTile
+import           XMonad.Layout.PerScreen
+import           XMonad.Layout.Tabbed
+import           XMonad.Layout.ThreeColumns
+
+import qualified XMonad.StackSet                  as W
+
+import           XMonad.Prompt
+import           XMonad.Prompt.AppLauncher
+import           XMonad.Prompt.Shell
+
+import           XMonad.Util.Run                  (spawnPipe)
+import           XMonad.Util.NamedScratchpad
+
+import           Graphics.X11.ExtraTypes.XF86
+
+import           Data.Bits ((.|.))
+import           Data.List (isInfixOf)
+import qualified Data.Map                         as M
+import           System.FilePath
+import           System.IO
+
+-- Shorthands for keys and masks
+modm    = mod4Mask
+none    = 0
+shift   = shiftMask
+control = controlMask
+
+command = stringProperty "WM_COMMAND"
+
+-- short defaults
+followMouseFocus = False
+myTerm           = "/usr/bin/urxvtc"
+myBrowser        = "/usr/bin/firefox"
+topHalfFloating  = customFloating $ W.RationalRect 0      0      1      (1/2)
+centerFloat r    = customFloating $ W.RationalRect r      r      (1-2*r) (1-2*r)
+centerBigFloat   = centerFloat (1/10)
+
+myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+scratchpads  =
+  [ NS "pass"  "keepassxc" (className =? "keepassxc") (customFloating $ W.RationalRect (2/5) (1/10) (1/2) (8/10))
+  -- , NS "term"  "urxvt -title 'scratchpad-term'" (title =? "scratchpad-term") topHalfFloating
+  , NS "rocketchat" "rocketchat" (className =? "Rocket.Chat+") centerBigFloat
+  , NS "slack" "slack" (className =? "Slack") centerBigFloat
+  -- , NS "telegram" "telegram-desktop" (className =? "TelegramDesktop") centerBigFloat
+  --, NS "mail" "claws-mail" (className =? "Claws-mail") $ centerFloat (1/20)
+  ]
+
+-- GridRatio is (w/h) where w is the number of cols and h the number of rows
+myLayout = ifWider 2560 (ThreeColMid 1 (3/100) (1/2)) (ResizableTall 1 (3/100) (1/2) [])
+       ||| (ResizableTall 1 (3/100) (1/2) [])
+       ||| Mirror (ResizableTall 1 (3/100) (1/2) [])
+       ||| ThreeColMid 1 (3/100) (1/2)
+       ||| reflectHoriz (ThreeColMid 1 (3/100) (1/2))
+       ||| Full
+       -- ||| addTabs shrinkText def (ifWider 2560 (ThreeColMid 1 (3/100) (1/2)) (ResizableTall 1 (3/100) (1/2) []))
+
+myManageHook = composeAll $
+  [ --manageSpawn
+    isFullscreen --> doFullFloat
+  , className =? "mpv" --> doFullFloat
+  , title =? "UNDERTALE" --> doFullFloat
+  , className =? "Spotify" --> doShift "7"
+  , title =? "Compose Message" --> doCenterFloat
+  , manageDocks
+  , isDialog     --> doCenterFloat
+  , namedScratchpadManageHook scratchpads
+  , fmap ("EMailBrowser-" `isInfixOf`) (stringProperty "WM_WINDOW_ROLE") --> doCenterFloat
+  ] ++
+  -- For claws-mail
+  [ stringProperty "WM_WINDOW_ROLE" =? "compose" --> doCenterFloat
+  , stringProperty "WM_WINDOW_ROLE" =? "summary_search" --> doCenterFloat
+  , stringProperty "WM_WINDOW_ROLE" =? "prefs_filtering" --> doCenterFloat
+  , stringProperty "WM_WINDOW_ROLE" =? "prefs_matcher" --> doCenterFloat
+  , stringProperty "WM_WINDOW_ROLE" =? "prefs_filtering_action" --> doCenterFloat
+  , stringProperty "WM_WINDOW_ROLE" =? "account" --> doCenterFloat
+  , (className =? "Steam") <&&> (title =? "Friends") --> doCenterFloat
+  , (className =? "Steam") <&&> (fmap ("Chat" `isInfixOf`) title) --> doCenterFloat
+  ]
+
+
+myHandleEventHook = mconcat
+  [ fullscreenEventHook
+  , docksEventHook
+  , handleEventHook def
+  ]
+
+
+titleBar = "/usr/bin/xmobar ~/.xmonad/title.xmobarrc"
+otherBar = "/usr/bin/xmobar ~/.xmonad/other.xmobarrc"
+
+myKeys conf@(XConfig { XMonad.modMask = modm, XMonad.terminal = term }) = M.fromList $
+    -- restart and recompile xmonad
+  [ ((modm .|. shift, xK_q),
+      spawn "killall xmobar" >> spawn "killall trayer" >> restart "xmonad" True)
+    -- kill current active window
+  , ((modm .|. shift, xK_c),
+      kill)
+
+  , ((modm .|. shift .|. control, xK_space),
+      sendMessage NextLayout)
+
+  , ((modm,           xK_f),
+      withFocused $ windows . (flip W.float $ W.RationalRect 0 0 1 1))
+
+  , ((modm .|. shift, xK_f),
+      withFocused $ windows . W.sink)
+
+  -- Window/master area manipulation
+  , ((modm,           xK_h),
+      sendMessage Shrink)
+  , ((modm,           xK_j),
+      windows W.focusDown)
+  , ((modm,           xK_k),
+      windows W.focusUp)
+  , ((modm,           xK_l),
+      sendMessage Expand)
+
+  , ((modm,           xK_d),
+      withFocused (keysResizeWindow (10,10) (1,1)))
+  , ((modm,           xK_c),
+      withFocused (keysResizeWindow (-10,-10) (1,1)))
+
+  , ((modm .|. shift, xK_h),
+      sendMessage $ IncMasterN 1)
+  , ((modm .|. shift, xK_j),
+      windows W.swapDown)
+  , ((modm .|. shift, xK_k),
+      windows W.swapUp)
+  , ((modm .|. shift, xK_l),
+      sendMessage $ IncMasterN $ -1)
+
+  , ((modm .|. control, xK_h),
+      sendMessage MirrorExpand)
+  , ((modm .|. control, xK_l),
+      sendMessage MirrorShrink)
+
+  , ((modm .|. shift, xK_Return),
+      windows W.swapMaster)
+
+  -- Application launching
+  , ((modm,           xK_Return),
+      spawn $ term)
+  , ((modm,           xK_s),
+      namedScratchpadAction scratchpads "term")
+  , ((modm .|. shift, xK_space),
+      spawn "rofi -show run")
+  , ((modm,           xK_p),
+      namedScratchpadAction scratchpads "pass")
+  --, ((modm,           xK_space),
+  --    shellPrompt def)
+  , ((modm,           xK_backslash),
+      namedScratchpadAction scratchpads "rocketchat")
+  , ((modm,           xK_bracketright),
+      namedScratchpadAction scratchpads "slack")
+  , ((modm,           xK_bracketleft),
+      namedScratchpadAction scratchpads "telegram")
+  -- , ((modm,           xK_m),
+  --     namedScratchpadAction scratchpads "mail")
+
+  -- quick searching
+  --, ((modm,           xK_f),
+  --    promptSearchBrowser def myBrowser (intelligent duckduckgo))
+
+  -- screenshots
+  , ((modm,           xK_o),
+      spawn "~/.bin/screenshot.sh select")
+  , ((modm .|. shift, xK_o),
+      spawn "~/.bin/screenshot.sh full")
+
+  -- system administration
+  , ((modm,           xK_w),
+      shellPrompt (def { defaultText = "~/.bin/system.sh " }))
+  , ((modm,           xK_a),
+      spawn "lock")
+  , ((modm,           xK_u),
+      spawn ".bin/manage-lock.sh disable-autolock")
+
+  -- Hotkeys for audio stuff
+  , ((none, xF86XK_AudioLowerVolume),
+      spawn ".bin/pulse-volume.sh decrease")
+  , ((none, xF86XK_AudioRaiseVolume),
+      spawn ".bin/pulse-volume.sh increase")
+  , ((none, xF86XK_AudioMute       ),
+      spawn ".bin/pulse-volume.sh toggle")
+  , ((none, xF86XK_AudioPlay       ),
+      spawn ".bin/spotify-control.py playpause")
+  , ((none, xF86XK_AudioStop       ),
+      spawn ".bin/spotify-control.py stop")
+  , ((none, xF86XK_AudioNext       ),
+      spawn ".bin/spotify-control.py next")
+  , ((none, xF86XK_AudioPrev       ),
+      spawn ".bin/spotify-control.py prev")
+  , ((none, xF86XK_MonBrightnessUp        ),
+      spawn ".bin/brightness.sh inc")
+  , ((none, xF86XK_MonBrightnessDown      ),
+      spawn ".bin/brightness.sh dec")
+  ] ++
+
+  -- Switch workspaces and move windows between workspaces
+  [ ((modm .|. mask, key), windows $ fn index)
+    | (index, key) <- zip myWorkspaces $ [xK_1 .. xK_9] ++ [xK_0]
+    , (fn, mask)   <- [(W.greedyView, none), (W.shift, shift)]
+  ] ++
+
+  -- View screen and move window to screen
+  [ ((modm .|. mask, key), screenWorkspace sc >>= flip whenJust (windows . fn))
+    | (key, sc)  <- zip [xK_e, xK_r, xK_t] [0..]
+    , (fn, mask) <- [(W.view, none), (W.shift, shift)]
+  ]
+
+main = do
+  n <- LIS.countScreens
+  titleBars <- mapM (\i -> spawnPipe $ titleBar ++ " -x " ++ show i) [0..n - 1]
+  otherBars <- mapM (\i -> spawn $ otherBar ++ " -x " ++ show i) [0..n - 1]
+
+  -- Workaround since `otherbars` are not drawn otherwise
+  --mapM_ (\bar -> hPutStrLn bar $ unlines . map (const "") $ [1..10000]) otherBars
+
+  xmonad $ ewmh $ def
+    { focusedBorderColor = "#404040"
+    , focusFollowsMouse  = False
+    , handleEventHook    = myHandleEventHook
+    , keys               = myKeys
+    , layoutHook         = (smartBorders . avoidStruts) myLayout
+    , logHook            = logHook' titleBars
+    , normalBorderColor  = "#000000"
+    , manageHook         = myManageHook
+    , modMask            = modm
+    , startupHook        = return ()
+    , terminal           = myTerm
+    , workspaces         = myWorkspaces
+    }
+    where
+      logHook' = mapM_ (\bar -> dynamicLogWithPP (namedScratchpadFilterOutWorkspacePP xmobarPP)
+                                { ppOutput = hPutStrLn bar
+                                , ppTitle = xmobarColor "green" "" . shorten 50
+                                })

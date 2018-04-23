@@ -1,0 +1,29 @@
+Config { font                = "xft:LiberationMono:size=10"
+       , borderColor         = "black"
+       , border              = TopB
+       , bgColor             = "black"
+       , fgColor             = "grey"
+       , position            = TopW L 100
+
+       , lowerOnStart        = False
+       , allDesktops         = True
+       , persistent          = True
+       , overrideRedirect    = False
+
+       , sepChar             = "%"
+       , alignSep            = "}{"
+       , template            = "%StdinReader% }{ %spotify% | %newmail% | %unreadmail% | %kbd% | %uname% | %LSZH% | %date% "
+       , commands =
+           [ Run Com "uname" ["-s", "-r"] "" 0
+           , Run Date "%a %d %b %Y %H:%M:%S" "date" 10
+           , Run Kbd [("us(altgr-intl)", "US-INTL")
+                     , ("us", "US")
+                     , ("de", "DE")
+                     ]
+           , Run Weather "LSZH" ["-t", "<station>: <tempC>C"] 6000
+           , Run Com ".bin/spotify-control.py" ["metadata"] "spotify" 100
+           , Run Com ".bin/mail.sh" ["new"] "newmail" 100
+           , Run Com ".bin/mail.sh" ["unread"] "unreadmail" 600
+           , Run StdinReader
+           ]
+       }
