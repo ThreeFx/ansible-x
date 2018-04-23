@@ -13,6 +13,23 @@
     owner: "{{ x_username }}"
     group: "{{ x_username }}"
 
+- name: Ensure lightdm conf.d exists
+  become: True
+  file:
+    path: "/etc/lightdm/lightdm.conf.d"
+    owner: root
+    group: root
+    state: directory
+
+- name: "Enable autologin for '{{ x_username }}'"
+  become: True
+  copy:
+    src: "12-autologin.conf.j2"
+    dest: "/etc/lightdm/lightdm.conf.d/12-autologin.conf"
+    owner: root
+    group: root
+    mode: 0644
+
 - name: Configure X session
   copy:
     src: "xsession.j2"
