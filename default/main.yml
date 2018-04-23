@@ -11,3 +11,5 @@ x_redshift_lon: 8.50454
 
 # Use the base user as default x user if no other user provided
 x_username: "{{ base_user.name }}"
+
+x_has_battery: False
