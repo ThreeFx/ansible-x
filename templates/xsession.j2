@@ -14,7 +14,4 @@ feh --bg-fill --randomize wallpaper/current/
 xsetroot -cursor_name left_ptr
 compton -b
 
-eval $(gnome-keyring-daemon --start --components=ssh,gpg)
-export GPG_AGENT_INFO SSH_AUTH_SOCK
-
 exec /etc/X11/Sessions/xmonad
