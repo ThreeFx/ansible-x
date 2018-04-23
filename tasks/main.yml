@@ -21,6 +21,13 @@
     update_cache: yes
   with_items: "{{ x_packages + x_extra_packages }}"
 
+- name: Install/update the self-written scripts
+  copy:
+    src: "scripts/"
+    dest: "{{ home_dir }}/.bin"
+    owner: "{{ x_username }}"
+    group: "{{ x_username }}"
+
 - name: Configure X setup
   include_tasks: config.yml
   tags:
