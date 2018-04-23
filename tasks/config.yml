@@ -1,4 +1,11 @@
 ---
+- name: Configure .Xresources
+  copy:
+    src: "Xresources"
+    dest: "{{ home_dir }}/.Xresources"
+    owner: "{{ x_username }}"
+    group: "{{ x_username }}"
+
 - name: Configure xmonad
   copy:
     src: "xmonad/"

@@ -9,7 +9,9 @@ redshift &
 feh --bg-fill --randomize wallpaper/current/
 
 /home/bfiedler/.bin/keyboardlayout.sh
+{% if x_enable_autolock %}
 /home/bfiedler/.bin/manage-lock.sh enable-autolock
+{% endif %}
 
 xsetroot -cursor_name left_ptr
 compton -b

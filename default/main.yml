@@ -5,11 +5,12 @@
 x_extra_packages: []
 x_extra_repositories: []
 
+x_enable_autolock: False
+x_has_battery: False
+
 # Redshift setting (default: Zurich)
 x_redshift_lat: 47.40769
 x_redshift_lon: 8.50454
 
 # Use the base user as default x user if no other user provided
 x_username: "{{ base_user.name }}"
-
-x_has_battery: False
