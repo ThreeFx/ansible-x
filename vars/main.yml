@@ -1,9 +1,15 @@
 ---
 x_packages:
+  - compton
+  - feh
+  - firefox
+  - keepassxc
   - libghc-xmonad-contrib-dev
   - libghc-xmonad-dev
   - lightdm
+  - qutebrowser-qtwebkit
   - redshift
+  - rofi
   - rvxt-unicode
   - xmonad
   - xmobar
