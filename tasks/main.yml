@@ -29,6 +29,21 @@
     group: "{{ x_username }}"
     mode: 0755
 
+- name: Copy the RocketChat installer script
+  become: True
+  copy:
+    src: rocketchat.sh
+    dest: /root/rocketchat.sh
+    owner: root
+    group: root
+    mode: 0744
+  register: rc_install
+
+- name: Install RocketChat
+  become: True
+  command: /root/rocketchat.sh
+  when: rc_install | changed
+
 - name: Configure X setup
   include_tasks: config.yml
   tags:
