@@ -8,6 +8,7 @@
   with_items:
     - '.config'
     - '.xmonad'
+    - 'wallpaper/current'
 
 - name: Configure .Xresources
   copy:
@@ -41,6 +42,13 @@
   template:
     src: "config/redshift.conf.j2"
     dest: "{{ home_dir }}/.config/redshift.conf"
+    owner: "{{ x_username }}"
+    group: "{{ x_username }}"
+
+- name: Configure wallpaper
+  copy:
+    src: "wallpaper/ansible.jpg"
+    dest: "{{ home_dir }}/wallpaper/current/ansible.jpg"
     owner: "{{ x_username }}"
     group: "{{ x_username }}"
 
