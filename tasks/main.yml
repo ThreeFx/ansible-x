@@ -1,12 +1,12 @@
 ---
-- name: Add default base signing keys
+- name: Add x signing keys
   become: True
   apt_key:
-    file: "keys/{{ item.key }}"
+    file: {{ item.keyfile }}
     state: present
   with_items: "{{ x_repositories + x_extra_repositories }}"
 
-- name: Add default apt repositories
+- name: Add apt repositories
   become: True
   apt_repository:
     repo: "{{ item.repo }}"

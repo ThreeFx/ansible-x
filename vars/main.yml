@@ -14,11 +14,14 @@ x_packages:
   - redshift
   - rofi
   - rxvt-unicode
+  - spotify
   - xmonad
   - xmobar
   - xorg
   - x11-xserver-utils
 
-x_repositories: []
+x_repositories:
+  - keyfile: spotify.key
+    repo: "http://repository.spotify.com stable non-free"
 
 home_dir: "/home/{{ x_username }}"
