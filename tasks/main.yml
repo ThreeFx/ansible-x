@@ -27,6 +27,7 @@
     dest: "{{ home_dir }}/.bin"
     owner: "{{ x_username }}"
     group: "{{ x_username }}"
+    mode: 0755
 
 - name: Configure X setup
   include_tasks: config.yml
