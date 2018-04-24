@@ -13,7 +13,7 @@ x_packages:
     #- qutebrowser-qtwebkit
   - redshift
   - rofi
-  - rxvt-unicode
+  - rxvt-unicode-256color
   - spotify-client
   - xmonad
   - xmobar
