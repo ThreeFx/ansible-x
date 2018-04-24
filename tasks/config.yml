@@ -1,4 +1,14 @@
 ---
+- name: Ensure necessary config directories exist
+  file:
+    path: "{{ home_dir }}/{{ item }}"
+    owner: "{{ x_username }}"
+    group: "{{ x_username }}"
+    state: directory
+  with_items:
+    - '.config'
+    - '.xmonad'
+
 - name: Configure .Xresources
   copy:
     src: "Xresources"
@@ -7,14 +17,28 @@
     group: "{{ x_username }}"
 
 - name: Configure xmonad
-  copy:
-    src: "xmonad/"
-    dest: "{{ home_dir }}/.xmonad"
+  template:
+    src: "xmonad/xmonad.hs.j2"
+    dest: "{{ home_dir }}/.xmonad/xmonad.hs"
+    owner: "{{ x_username }}"
+    group: "{{ x_username }}"
+
+- name: Configure title xmobar
+  template:
+    src: "xmonad/title.xmobarrc.j2"
+    dest: "{{ home_dir }}/.xmonad/title.xmobarrc"
+    owner: "{{ x_username }}"
+    group: "{{ x_username }}"
+
+- name: Configure bottom xmobar
+  template:
+    src: "xmonad/other.xmobarrc.j2"
+    dest: "{{ home_dir }}/.xmonad/other.xmobarrc"
     owner: "{{ x_username }}"
     group: "{{ x_username }}"
 
 - name: Configure redshift
-  copy:
+  template:
     src: "config/redshift.conf.j2"
     dest: "{{ home_dir }}/.config/redshift.conf"
     owner: "{{ x_username }}"
@@ -30,7 +54,7 @@
 
 - name: "Enable autologin for '{{ x_username }}'"
   become: True
-  copy:
+  template:
     src: "12-autologin.conf.j2"
     dest: "/etc/lightdm/lightdm.conf.d/12-autologin.conf"
     owner: root
@@ -38,7 +62,7 @@
     mode: 0644
 
 - name: Configure X session
-  copy:
+  template:
     src: "xsession.j2"
     dest: "{{ home_dir }}/.xsession"
     owner: "{{ x_username }}"
