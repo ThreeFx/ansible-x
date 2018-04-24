@@ -1,14 +1,14 @@
 #!/bin/bash
 
 urxvtd -f
+redshift &
 
 /home/bfiedler/.bin/screen.sh left
-
-redshift &
 
 feh --bg-fill --randomize wallpaper/current/
 
 /home/bfiedler/.bin/keyboardlayout.sh
+
 {% if x_enable_autolock %}
 /home/bfiedler/.bin/manage-lock.sh enable-autolock
 {% endif %}
@@ -16,4 +16,4 @@ feh --bg-fill --randomize wallpaper/current/
 xsetroot -cursor_name left_ptr
 compton -b
 
-exec /etc/X11/Sessions/xmonad
+exec /usr/bin/xmonad
