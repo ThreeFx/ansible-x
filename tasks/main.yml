@@ -24,7 +24,7 @@
 - name: Install/update the self-written scripts
   copy:
     src: "scripts/"
-    dest: "{{ home_dir }}/.bin"
+    dest: "{{ base_scripts_dir }}"
     owner: "{{ x_username }}"
     group: "{{ x_username }}"
     mode: 0755
