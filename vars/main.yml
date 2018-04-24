@@ -2,17 +2,22 @@
 x_packages:
   - compton
   - feh
-  - firefox
-  - keepassxc
+  - firefox-esr
+  - keepassx
   - libghc-xmonad-contrib-dev
   - libghc-xmonad-dev
   - lightdm
-  - qutebrowser-qtwebkit
+  # Even though this is a cli, I don't want to install mutt on e.g. a VM
+  - mutt
+    # Wait until this is in stable
+    #- qutebrowser-qtwebkit
   - redshift
   - rofi
-  - rvxt-unicode
+  - rxvt-unicode
   - xmonad
   - xmobar
+  - xorg
+  - x11-xserver-utils
 
 x_repositories: []
 
