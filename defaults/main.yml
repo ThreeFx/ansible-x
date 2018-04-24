@@ -8,6 +8,8 @@ x_extra_repositories: []
 x_enable_autolock: False
 x_has_battery: False
 
+x_keepass_content: ""
+
 # Redshift setting (default: Zurich)
 x_redshift_lat: 47.40769
 x_redshift_lon: 8.50454

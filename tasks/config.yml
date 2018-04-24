@@ -9,6 +9,13 @@
     - '.config'
     - '.xmonad'
     - 'wallpaper/current'
+    - 'keepassx'
+
+- name: Copy initial keepass database
+  copy:
+    content: "{{ x_keepass_content | b64decode }}"
+    dest: "{{ home_dir }}/keepassx/passwords.kdbx"
+    force: no
 
 - name: Configure .Xresources
   copy:
