@@ -14,7 +14,7 @@ x_packages:
   - redshift
   - rofi
   - rxvt-unicode
-  - spotify
+  - spotify-client
   - xmonad
   - xmobar
   - xorg
@@ -22,6 +22,6 @@ x_packages:
 
 x_repositories:
   - keyfile: spotify.key
-    repo: "http://repository.spotify.com stable non-free"
+    repo: "deb http://repository.spotify.com stable non-free"
 
 home_dir: "/home/{{ x_username }}"
