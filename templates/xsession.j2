@@ -3,15 +3,18 @@
 urxvtd -f
 redshift &
 
-/home/bfiedler/.bin/screen.sh left
+{{ base_scripts_dir }}/screen.sh left
 
 feh --bg-fill --randomize wallpaper/current/
 
-/home/bfiedler/.bin/keyboardlayout.sh
+{{ base_scripts_dir }}/keyboardlayout.sh
 
 {% if x_enable_autolock %}
-/home/bfiedler/.bin/manage-lock.sh enable-autolock
+{{ base_scripts_dir }}/manage-lock.sh enable-autolock
 {% endif %}
+
+eval $(gnome-keyring-daemon --start --components=ssh,gpg)
+export GPG_AGENT_INFO SSH_AUTH_SOCK
 
 xsetroot -cursor_name left_ptr
 compton -b
