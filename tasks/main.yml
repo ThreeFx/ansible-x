@@ -2,14 +2,14 @@
 - name: Add x signing keys
   become: True
   apt_key:
-    data: "{{ lookup('file', 'keys/{{ item.keyfile }}') }}"
+    data: "{{ lookup('file', 'keys/{{ item }}') }}"
     state: present
-  with_items: "{{ x_repositories + x_extra_repositories }}"
+  with_items: "{{ x_keys + x_extra_keys }}"
 
 - name: Add apt repositories
   become: True
   apt_repository:
-    repo: "{{ item.repo }}"
+    repo: "{{ item }}"
     state: present
   with_items: "{{ x_repositories + x_extra_repositories }}"
 

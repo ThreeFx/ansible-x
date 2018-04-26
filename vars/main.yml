@@ -20,8 +20,9 @@ x_packages:
   - xorg
   - x11-xserver-utils
 
+x_keys:
+  - spotify.key
 x_repositories:
-  - keyfile: spotify.key
-    repo: "deb http://repository.spotify.com stable non-free"
+  - "deb http://repository.spotify.com stable non-free"
 
 home_dir: "/home/{{ x_username }}"
