@@ -7,8 +7,6 @@ x_packages:
   - libghc-xmonad-contrib-dev
   - libghc-xmonad-dev
   - lightdm
-  # Even though this is a cli, I don't want to install mutt on e.g. a VM
-  - mutt
     # Wait until this is in stable
     #- qutebrowser-qtwebkit
   - redshift
