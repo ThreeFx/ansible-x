@@ -67,6 +67,15 @@
     group: root
     state: directory
 
+- name: "Disable logging in as guest"
+  become: True
+  template:
+    src: "10-disable-guest"
+    dest: "/etc/lightdm/lightdm.conf.d/10-disable-guest"
+    owner: root
+    group: root
+    mode: 0644
+
 - name: "Enable autologin for '{{ x_username }}'"
   become: True
   template:
