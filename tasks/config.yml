@@ -69,7 +69,7 @@
 
 - name: "Disable logging in as guest"
   become: True
-  template:
+  copy:
     src: "10-disable-guest"
     dest: "/etc/lightdm/lightdm.conf.d/10-disable-guest"
     owner: root
