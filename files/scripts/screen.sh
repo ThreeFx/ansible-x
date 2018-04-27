@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # turn disconnected outputs off
 for screen in $(xrandr | grep disconnected | sed 's|^\([^ ]*\).*$|\1|g')
