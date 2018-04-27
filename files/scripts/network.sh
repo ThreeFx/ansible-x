@@ -23,7 +23,7 @@ fi
 #    exit 0
 #}
 
-essid=`/usr/sbin/iw dev $wifi link | grep SSID | awk -F ':' '{print $2}' | cut -c 2-`
+essid=`/sbin/iw dev $wifi link | grep SSID | awk -F ':' '{print $2}' | cut -c 2-`
 #stngth=`/sbin/iwconfig $wifi | awk -F '=' '/Quality/ {print $2}' | cut -d '/' -f 1`
 #bars=`expr $stngth / 10`
 #
