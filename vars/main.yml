@@ -13,7 +13,9 @@ x_packages:
   - redshift
   - rofi
   - rxvt-unicode-256color
+  - scrot
   - spotify-client
+  - xclip
   - xmonad
   - xmobar
   - xorg
