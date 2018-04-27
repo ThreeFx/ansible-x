@@ -4,6 +4,7 @@ x_packages:
   - feh
   - firefox-esr
   - keepassx
+  - fonts-liberation
   - libghc-xmonad-contrib-dev
   - libghc-xmonad-dev
   - lightdm
