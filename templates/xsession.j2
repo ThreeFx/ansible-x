@@ -13,6 +13,7 @@ feh --bg-fill --randomize wallpaper/current/
 {{ base_scripts_dir }}/manage-lock.sh enable-autolock
 {% endif %}
 
+dbus-update-activation-environment --systemd DISPLAY
 eval $(gnome-keyring-daemon --start --components=ssh,gpg)
 export GPG_AGENT_INFO SSH_AUTH_SOCK
 
