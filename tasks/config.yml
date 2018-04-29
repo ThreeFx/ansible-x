@@ -70,8 +70,8 @@
 - name: "Disable logging in as guest"
   become: True
   copy:
-    src: "10-disable-guest"
-    dest: "/etc/lightdm/lightdm.conf.d/10-disable-guest"
+    src: "10-disable-guest.conf"
+    dest: "/etc/lightdm/lightdm.conf.d/10-disable-guest.conf"
     owner: root
     group: root
     mode: 0644
