@@ -193,7 +193,7 @@ myKeys conf@(XConfig { XMonad.modMask = modm, XMonad.terminal = term }) = M.from
   , ((modm,           xK_a),
       spawn "lock")
   , ((modm,           xK_u),
-      spawn ".bin/manage-lock.sh disable-autolock")
+      spawn ".bin/autolock.sh disable")
 
   -- Hotkeys for audio stuff
   , ((none, xF86XK_AudioLowerVolume),

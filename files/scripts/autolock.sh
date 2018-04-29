@@ -1,19 +1,19 @@
 #!/bin/bash
 
-DEFAULT='lock'
+DEFAULT='slock'
 #BLANK='i3lock -nc 000000'
 
 PID=`pgrep xautolock`
 
 case $1 in
-    enable-autolock)
+    enable)
         if [[ $PID == "" ]]; then
             xautolock -detectsleep -locker "$DEFAULT" -time 5 &
         else
             echo 'xautolock already running!'
         fi
         ;;
-    disable-autolock)
+    disable)
         if [[ $PID != "" ]]; then
             killall xautolock
         else
@@ -27,15 +27,6 @@ case $1 in
             xautolock -locknow
         fi
         ;;
-#    blank)
-#        if [[ $PID == "" ]]; then
-#            i3lock -uc 000000
-#        else
-#            $0 disable-autolock
-#            $0 blank
-#            $0 enable-autolock
-#        fi
-#        ;;
     statusfancy)
         if [[ $PID == "" ]]; then
             echo "%{u#c16772 F#16772}  %{-u F-}"
@@ -45,6 +36,6 @@ case $1 in
         ;;
     *)
         echo "Command not found: $1"
-        echo "Usage: $0 [ enable-autolock | disable-autolock | default ]"
+        echo "Usage: $0 [ enable-autolock | disable-autolock | default | statusfancy ]"
         ;;
 esac

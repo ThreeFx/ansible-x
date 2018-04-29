@@ -2,6 +2,7 @@
 x_packages:
   - compton
   - feh
+    # Sadly, firefox 57.0 isn't stable yet
   - firefox-esr
   - keepassx
   - fonts-liberation
@@ -14,7 +15,9 @@ x_packages:
   - rofi
   - rxvt-unicode-256color
   - scrot
+  - slock
   - spotify-client
+  - vlock
   - xclip
   - xmonad
   - xmobar
