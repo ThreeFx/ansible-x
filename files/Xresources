@@ -7,9 +7,10 @@ URxvt.keysym.C-slash: font-size:show
 
 URxvt.keysym.C-BackSpace: \033[33~
 
+URxvt*font: xft:Liberation Mono:size=12
+
 URxvt*background: rgb:17/17/17
 URxvt*foreground: rgb:ff/ff/ff
-URxvt*font: xft:Liberation Mono:size=12
 URxvt*scrollBar: false
 
 URxvt*urlLauncher: qutebrowser
