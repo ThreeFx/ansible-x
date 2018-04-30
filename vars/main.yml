@@ -17,6 +17,7 @@ x_packages:
   - scrot
   - slock
   - spotify-client
+  - vim-gtk
   - vlock
   - xautolock
   - xclip
