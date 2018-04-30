@@ -52,6 +52,14 @@
     owner: "{{ x_username }}"
     group: "{{ x_username }}"
 
+- name: Configure the user directories
+  template:
+    src: "config/{{ item }}.j2"
+    dest: "{{ home_dir }}/.config/{{ item }}"
+  with_items:
+    - user-dirs.dirs
+    - user-dirs.locale
+
 - name: Configure wallpaper
   copy:
     src: "wallpaper/ansible.jpg"
