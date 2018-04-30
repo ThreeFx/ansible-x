@@ -75,8 +75,7 @@ myLayout = ifWider 2560 (ThreeColMid 1 (3/100) (1/2)) (ResizableTall 1 (3/100) (
        -- ||| addTabs shrinkText def (ifWider 2560 (ThreeColMid 1 (3/100) (1/2)) (ResizableTall 1 (3/100) (1/2) []))
 
 myManageHook = composeAll $
-  [
-    isFullscreen --> doFullFloat
+  [ isFullscreen --> doFullFloat
   , className =? "mpv" --> doFullFloat
   , title =? "UNDERTALE" --> doFullFloat
   , className =? "Spotify" --> doShift "7"
@@ -191,7 +190,7 @@ myKeys conf@(XConfig { XMonad.modMask = modm, XMonad.terminal = term }) = M.from
   , ((modm,           xK_w),
       shellPrompt (def { defaultText = "~/.bin/system.sh " }))
   , ((modm,           xK_a),
-      spawn "lock")
+      spawn ".bin/autolock.sh lock")
   , ((modm,           xK_u),
       spawn ".bin/autolock.sh disable")
 

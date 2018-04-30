@@ -19,7 +19,7 @@ case $1 in
             echo 'xautolock not running!'
         fi
         ;;
-    default)
+    lock)
         if [[ $PID == "" ]]; then
             `$DEFAULT`
         else
