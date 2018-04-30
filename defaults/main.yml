@@ -15,5 +15,7 @@ x_keepass_content: ""
 x_redshift_lat: 47.40769
 x_redshift_lon: 8.50454
 
+x_screen_locker: slock
+
 # Use the base user as default x user if no other user provided
 x_username: "{{ base_user.name }}"

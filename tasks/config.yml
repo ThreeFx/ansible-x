@@ -85,6 +85,12 @@
     group: root
     mode: 0644
 
+- name: Configure the autolock script
+  template:
+    src: "scripts/autolock.sh.j2"
+    dest: "{{ base_scripts_dir }}/autolock.sh"
+    mode: 0755
+
 - name: Configure X session
   template:
     src: "xsession.j2"
