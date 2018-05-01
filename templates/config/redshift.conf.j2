@@ -1,7 +1,12 @@
+[redshift]
+temp-day={{ x_redshift_temp_day }}
+temp-night={{ x_redshift_temp_night }}
+; Otherwise it only works when there's a working internet connection...
+location-provider=manual
+; Enable a smooth transition between day and night
+transition=1
+
+
 [manual]
 lat={{ x_redshift_lat }}
 lon={{ x_redshift_lon }}
-
-[redshift]
-temp-day=4500
-temp-night=3700
