@@ -11,11 +11,17 @@
     - 'wallpaper/current'
     - 'keepassx'
 
-- name: Copy initial keepass database
+- name: Stat synced password database
+  stat:
+    path: "{{ home_dir }}/keepassx/passwords.kdbx"
+  register: x_keepass_stat
+
+- name: Copy initial keepass database if no existing found
   copy:
     content: "{{ x_keepass_content | b64decode }}"
-    dest: "{{ home_dir }}/keepassx/passwords.kdbx"
+    dest: "{{ home_dir }}/keepassx/bootstrap.kdbx"
     force: no
+  when: not x_keepass_stat.stat.exists
 
 - name: Configure .Xresources
   copy:
