@@ -58,11 +58,9 @@ centerBigFloat   = centerFloat (1/10)
 myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 scratchpads  =
   [ NS "pass"  "keepassx" (className =? "Keepassx") (customFloating $ W.RationalRect (2/5) (1/10) (1/2) (8/10))
-  -- , NS "term"  "urxvt -title 'scratchpad-term'" (title =? "scratchpad-term") topHalfFloating
   , NS "rocketchat" "rocketchat" (className =? "Rocket.Chat+") centerBigFloat
   , NS "slack" "slack" (className =? "Slack") centerBigFloat
-  -- , NS "telegram" "telegram-desktop" (className =? "TelegramDesktop") centerBigFloat
-  --, NS "mail" "claws-mail" (className =? "Claws-mail") $ centerFloat (1/20)
+  , NS "wicd" "wicd-client" (className =? "Wicd-client.py") $ centerFloat (1/4)
   ]
 
 -- GridRatio is (w/h) where w is the number of cols and h the number of rows
@@ -172,7 +170,7 @@ myKeys conf@(XConfig { XMonad.modMask = modm, XMonad.terminal = term }) = M.from
   , ((modm,           xK_bracketright),
       namedScratchpadAction scratchpads "slack")
   , ((modm,           xK_bracketleft),
-      namedScratchpadAction scratchpads "telegram")
+      namedScratchpadAction scratchpads "wicd")
   -- , ((modm,           xK_m),
   --     namedScratchpadAction scratchpads "mail")
 
