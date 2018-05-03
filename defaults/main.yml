@@ -21,4 +21,5 @@ x_screen_locker: slock
 
 # Copy these from the base role
 x_username: "{{ base_user.name }}"
-x_scripts_dir: "{{ base_scripts_dir }}
+x_scripts_dir: "{{ base_scripts_dir }}"
+x_editor: "{{ base_editor }}"
