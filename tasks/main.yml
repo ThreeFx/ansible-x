@@ -21,6 +21,12 @@
     update_cache: yes
   with_items: "{{ x_packages + x_extra_packages }}"
 
+- name: "Set default editor to '{{ x_editor }}'"
+  become: True
+  shell: "update-alternatives --set editor {{ x_editor }}"
+  register: change_editor
+  changed_when: change_editor.stdout != ""
+
 - name: Install/update the self-written scripts
   copy:
     src: "scripts/"
