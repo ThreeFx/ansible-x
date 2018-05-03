@@ -19,5 +19,6 @@ x_redshift_lon: 8.50454
 
 x_screen_locker: slock
 
-# Use the base user as default x user if no other user provided
+# Copy these from the base role
 x_username: "{{ base_user.name }}"
+x_scripts_dir: "{{ base_scripts_dir }}
