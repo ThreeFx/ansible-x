@@ -60,11 +60,8 @@
 
 - name: Configure the user directories
   template:
-    src: "config/{{ item }}.j2"
-    dest: "{{ home_dir }}/.config/{{ item }}"
-  with_items:
-    - user-dirs.dirs
-    - user-dirs.locale
+    src: "config/user-dirs.dirs.j2"
+    dest: "{{ home_dir }}/.config/user-dirs.dirs"
 
 - name: Configure wallpaper
   copy:
