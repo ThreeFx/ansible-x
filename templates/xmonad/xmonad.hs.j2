@@ -80,6 +80,7 @@ myManageHook = composeAll $
   , title =? "Unlock private key" --> doCenterFloat
   , manageDocks
   , isDialog     --> doCenterFloat
+  , className =? "Gcr-prompter" --> doCenterFloat
   , namedScratchpadManageHook scratchpads
   , fmap ("EMailBrowser-" `isInfixOf`) (stringProperty "WM_WINDOW_ROLE") --> doCenterFloat
   ] ++
