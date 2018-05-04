@@ -230,13 +230,8 @@ main = do
   titleBars <- mapM (\i -> spawnPipe $ titleBar ++ " -x " ++ show i) [0..n - 1]
   otherBars <- mapM (\i -> spawn $ otherBar ++ " -x " ++ show i) [0..n - 1]
 
-  -- Put xmobar below the system tray
-  spawn "wmctrl -b add below -r xmobar"
-  spawn $ "trayer --align right --edge bottom --widthtype request --height 20"
-    ++ " --transparent true --tint 0x00000000"
-  spawn $ "nm-applet"
-
-
+  -- spawn stuff loading after the window manager
+  spawn ".bin/start-session.sh"
 
   xmonad $ ewmh $ def
     { focusedBorderColor = "#404040"
