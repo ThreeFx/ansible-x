@@ -23,3 +23,5 @@ x_screen_locker: slock
 x_username: "{{ base_user.name }}"
 x_scripts_dir: "{{ base_scripts_dir }}"
 x_editor: "{{ base_editor }}"
+
+x_gpg_auth_keygrip: "changeme"

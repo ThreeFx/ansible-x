@@ -70,6 +70,10 @@
     owner: "{{ x_username }}"
     group: "{{ x_username }}"
 
+- name: Configure gpg-agent
+  include_tasks: gpg.yml
+  when: x_gpg_auth_keygrip != 'changeme'
+
 - name: Ensure lightdm conf.d exists
   become: True
   file:

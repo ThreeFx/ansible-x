@@ -1,0 +1,12 @@
+---
+- name: Configure gpg-agent to use GPG keys as authentication method
+  copy:
+    src: gpg-agent.conf
+    dest: "{{ home_dir }}/.gnupg/gpg-agent.conf"
+    mode: 0644
+
+- name: Write the keygrip of the authentication subkey to sshcontrol
+  template:
+    src: sshcontrol.j2
+    dest: "{{ home_dir }}/.gnupg/sshcontrol"
+    mode: 0644
