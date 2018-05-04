@@ -17,8 +17,10 @@ x_packages:
   - scrot
   - slock
   - spotify-client
+  - trayer
   - vim-gtk
   - vlock
+  - wmctrl
   - xautolock
   - xclip
   - xmonad

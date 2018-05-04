@@ -230,8 +230,9 @@ main = do
   titleBars <- mapM (\i -> spawnPipe $ titleBar ++ " -x " ++ show i) [0..n - 1]
   otherBars <- mapM (\i -> spawn $ otherBar ++ " -x " ++ show i) [0..n - 1]
 
-  -- Workaround since `otherbars` are not drawn otherwise
-  --mapM_ (\bar -> hPutStrLn bar $ unlines . map (const "") $ [1..10000]) otherBars
+  -- Put xmobar below the system tray
+  spawn "wmctrl -b add below -r xmobar"
+
 
   xmonad $ ewmh $ def
     { focusedBorderColor = "#404040"
