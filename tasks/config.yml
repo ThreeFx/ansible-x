@@ -69,6 +69,7 @@
     dest: "{{ home_dir }}/wallpaper/current/ansible.jpg"
     owner: "{{ x_username }}"
     group: "{{ x_username }}"
+    force: no
 
 - name: Configure gpg-agent
   include_tasks: gpg.yml
