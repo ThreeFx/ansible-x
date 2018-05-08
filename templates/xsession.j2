@@ -14,7 +14,7 @@ feh --bg-fill --randomize wallpaper/current/
 {% endif %}
 
 dbus-update-activation-environment --systemd DISPLAY
-{% if x_gpg_auth_keygrip != 'changeme' %}
+{% if x_gpg_as_ssh %}
 gpg-connect-agent /bye
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 eval $(gnome-keyring-daemon --start --components=gpg)

@@ -73,7 +73,7 @@
 
 - name: Configure gpg-agent
   include_tasks: gpg.yml
-  when: x_gpg_auth_keygrip != 'changeme'
+  when: x_gpg_as_ssh
 
 - name: Ensure lightdm conf.d exists
   become: True
