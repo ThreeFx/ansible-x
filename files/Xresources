@@ -1,3 +1,4 @@
+! Currently doesn't work on Debian :(
 URxvt.perl-ext-common: font-size
 
 URxvt.keysym.C-Up: font-size:increase
