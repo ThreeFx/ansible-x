@@ -14,7 +14,7 @@ Config { font                = "xft:LiberationMono:size=10"
        , alignSep            = "}{"
        , template            = " &multicpu& | &disku& | RAM: &memory& | SWP: &swap& | &dynnetwork& }{ lck: &autolock& | rsh: &redshift& | vol: &volume& | wifi: &net& (&ip&){% if x_has_battery %} | &battery&{% endif %} | &trayerpad&"
        , commands =
-           [ Run MultiCpu   [ "--template", "CPU: <autototal>"
+           [ Run MultiCpu   [ "--template", "CPU: <autototal>%"
                             , "-L", "3"
                             , "-H", "50"
                             , "--normal", "green"
