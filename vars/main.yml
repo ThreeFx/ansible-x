@@ -33,5 +33,3 @@ x_keys:
   - spotify.key
 x_repositories:
   - "deb http://repository.spotify.com stable non-free"
-
-home_dir: "/home/{{ x_username }}"

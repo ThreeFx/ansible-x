@@ -2,5 +2,5 @@
 - name: Configure gpg-agent to use GPG keys as authentication method
   copy:
     src: gpg-agent.conf
-    dest: "{{ home_dir }}/.gnupg/gpg-agent.conf"
+    dest: "{{ base_home_dir }}/.gnupg/gpg-agent.conf"
     mode: 0644
