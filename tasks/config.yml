@@ -18,8 +18,8 @@
 
 - name: Copy initial keepass database if no existing found
   copy:
-    content: "{{ x_keepass_content | b64decode }}"
-    dest: "{{ home_dir }}/keepassx/bootstrap.kdbx"
+    content: "{{ x_keepass_content }}"
+    dest: "{{ home_dir }}/keepassx/bootstrap.kdbx.gpg.b64"
     force: no
   when: not x_keepass_stat.stat.exists
 
