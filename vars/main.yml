@@ -31,5 +31,6 @@ x_packages:
 
 x_keys:
   - spotify.key
+
 x_repositories:
   - "deb http://repository.spotify.com stable non-free"
