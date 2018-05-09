@@ -12,7 +12,7 @@ Config { font                = "xft:LiberationMono:size=10"
 
        , sepChar             = "%"
        , alignSep            = "}{"
-       , template            = "%StdinReader% }{ %spotify% | %newmail% | %unreadmail% | %kbd% | %uname% | %LSZH% | %date% "
+       , template            = "%StdinReader% }{ %spotify% | {% if mail_accounts != [] %}%newmail% | %unreadmail% | {% endif %}%kbd% | %uname% | %LSZH% | %date% "
        , commands =
            [ Run Com "uname" ["-s", "-r"] "" 0
            , Run Date "%a %d %b %Y %H:%M:%S" "date" 10
@@ -22,8 +22,10 @@ Config { font                = "xft:LiberationMono:size=10"
                      ]
            , Run Weather "LSZH" ["-t", "<station>: <tempC>C"] 6000
            , Run Com ".bin/spotify-control.py" ["metadata"] "spotify" 100
+{% if mail_accounts != [] %}
            , Run Com ".bin/mail.sh" ["new"] "newmail" 100
            , Run Com ".bin/mail.sh" ["unread"] "unreadmail" 600
+{% endif %}
            , Run StdinReader
            ]
        }
