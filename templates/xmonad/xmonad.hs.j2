@@ -119,6 +119,8 @@ myKeys conf@(XConfig { XMonad.modMask = modm, XMonad.terminal = term }) = M.from
 
   , ((modm,           xK_f),
       withFocused $ windows . (flip W.float $ W.RationalRect 0 0 1 1))
+  , ((modm,           xK_g),
+      spawn ".bin/keyboardlayout.sh")
 
   , ((modm .|. shift, xK_f),
       withFocused $ windows . W.sink)
