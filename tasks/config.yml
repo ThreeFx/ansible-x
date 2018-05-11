@@ -1,7 +1,7 @@
 ---
 - name: Ensure necessary config directories exist
   file:
-    path: "{{ base_home_dir }}/{{ item }}"
+    path: "{{ x_home_dir }}/{{ item }}"
     owner: "{{ x_username }}"
     group: "{{ x_username }}"
     state: directory
@@ -13,60 +13,60 @@
 
 - name: Stat synced password database
   stat:
-    path: "{{ base_home_dir }}/keepassx/passwords.kdbx"
+    path: "{{ x_home_dir }}/keepassx/passwords.kdbx"
   register: x_keepass_stat
 
 - name: Copy initial keepass database if no existing found
   copy:
     content: "{{ x_keepass_content }}"
-    dest: "{{ base_home_dir }}/keepassx/bootstrap.kdbx.gpg.b64"
+    dest: "{{ x_home_dir }}/keepassx/bootstrap.kdbx.gpg.b64"
     force: no
   when: not x_keepass_stat.stat.exists
 
 - name: Configure .Xresources
   copy:
     src: "Xresources"
-    dest: "{{ base_home_dir }}/.Xresources"
+    dest: "{{ x_home_dir }}/.Xresources"
     owner: "{{ x_username }}"
     group: "{{ x_username }}"
 
 - name: Configure xmonad
   template:
     src: "xmonad/xmonad.hs.j2"
-    dest: "{{ base_home_dir }}/.xmonad/xmonad.hs"
+    dest: "{{ x_home_dir }}/.xmonad/xmonad.hs"
     owner: "{{ x_username }}"
     group: "{{ x_username }}"
 
 - name: Configure title xmobar
   template:
     src: "xmonad/title.xmobarrc.j2"
-    dest: "{{ base_home_dir }}/.xmonad/title.xmobarrc"
+    dest: "{{ x_home_dir }}/.xmonad/title.xmobarrc"
     owner: "{{ x_username }}"
     group: "{{ x_username }}"
 
 - name: Configure bottom xmobar
   template:
     src: "xmonad/other.xmobarrc.j2"
-    dest: "{{ base_home_dir }}/.xmonad/other.xmobarrc"
+    dest: "{{ x_home_dir }}/.xmonad/other.xmobarrc"
     owner: "{{ x_username }}"
     group: "{{ x_username }}"
 
 - name: Configure redshift
   template:
     src: "config/redshift.conf.j2"
-    dest: "{{ base_home_dir }}/.config/redshift.conf"
+    dest: "{{ x_home_dir }}/.config/redshift.conf"
     owner: "{{ x_username }}"
     group: "{{ x_username }}"
 
 - name: Configure the user directories
   template:
     src: "config/user-dirs.dirs.j2"
-    dest: "{{ base_home_dir }}/.config/user-dirs.dirs"
+    dest: "{{ x_home_dir }}/.config/user-dirs.dirs"
 
 - name: Configure wallpaper
   copy:
     src: "wallpaper/ansible.jpg"
-    dest: "{{ base_home_dir }}/wallpaper/current/ansible.jpg"
+    dest: "{{ x_home_dir }}/wallpaper/current/ansible.jpg"
     owner: "{{ x_username }}"
     group: "{{ x_username }}"
     force: no
@@ -110,7 +110,7 @@
 - name: Configure X session
   template:
     src: "xsession.j2"
-    dest: "{{ base_home_dir }}/.xsession"
+    dest: "{{ x_home_dir }}/.xsession"
     owner: "{{ x_username }}"
     group: "{{ x_username }}"
     mode: 0700
