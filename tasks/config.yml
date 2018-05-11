@@ -101,11 +101,14 @@
     group: root
     mode: 0644
 
-- name: Configure the autolock script
+- name: Configure scripts which require templating
   template:
-    src: "scripts/autolock.sh.j2"
-    dest: "{{ x_scripts_dir }}/autolock.sh"
+    src: "scripts/{{ item }}.sh.j2"
+    dest: "{{ x_scripts_dir }}/{{ item }}.sh"
     mode: 0755
+  with_items:
+    - autolock.sh
+    - screen.sh
 
 - name: Configure X session
   template:

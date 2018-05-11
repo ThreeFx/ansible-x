@@ -120,7 +120,7 @@ myKeys conf@(XConfig { XMonad.modMask = modm, XMonad.terminal = term }) = M.from
   , ((modm,           xK_f),
       withFocused $ windows . (flip W.float $ W.RationalRect 0 0 1 1))
   , ((modm,           xK_g),
-      spawn ".bin/keyboardlayout.sh")
+      spawn "{{ x_scripts_dir }}/keyboardlayout.sh")
 
   , ((modm .|. shift, xK_f),
       withFocused $ windows . W.sink)
@@ -183,37 +183,37 @@ myKeys conf@(XConfig { XMonad.modMask = modm, XMonad.terminal = term }) = M.from
 
   -- screenshots
   , ((modm,           xK_o),
-      spawn "~/.bin/screenshot.sh select")
+      spawn "{{ x_scripts_dir }}/screenshot.sh select")
   , ((modm .|. shift, xK_o),
-      spawn "~/.bin/screenshot.sh full")
+      spawn "{{ x_scripts_dir }}/screenshot.sh full")
 
   -- system administration
   , ((modm,           xK_w),
       shellPrompt (def { defaultText = "systemctl " }))
   , ((modm,           xK_a),
-      spawn ".bin/autolock.sh lock")
+      spawn "{{ x_scripts_dir }}/autolock.sh lock")
   , ((modm,           xK_u),
-      spawn ".bin/autolock.sh disable")
+      spawn "{{ x_scripts_dir }}/autolock.sh disable")
 
   -- Hotkeys for audio stuff
   , ((none, xF86XK_AudioLowerVolume),
-      spawn ".bin/pulse-volume.sh decrease")
+      spawn "{{ x_scripts_dir }}/pulse-volume.sh decrease")
   , ((none, xF86XK_AudioRaiseVolume),
-      spawn ".bin/pulse-volume.sh increase")
+      spawn "{{ x_scripts_dir }}/pulse-volume.sh increase")
   , ((none, xF86XK_AudioMute       ),
-      spawn ".bin/pulse-volume.sh toggle")
+      spawn "{{ x_scripts_dir }}/pulse-volume.sh toggle")
   , ((none, xF86XK_AudioPlay       ),
-      spawn ".bin/spotify-control.py playpause")
+      spawn "{{ x_scripts_dir }}/spotify-control.py playpause")
   , ((none, xF86XK_AudioStop       ),
-      spawn ".bin/spotify-control.py stop")
+      spawn "{{ x_scripts_dir }}/spotify-control.py stop")
   , ((none, xF86XK_AudioNext       ),
-      spawn ".bin/spotify-control.py next")
+      spawn "{{ x_scripts_dir }}/spotify-control.py next")
   , ((none, xF86XK_AudioPrev       ),
-      spawn ".bin/spotify-control.py prev")
+      spawn "{{ x_scripts_dir }}/spotify-control.py prev")
   , ((none, xF86XK_MonBrightnessUp        ),
-      spawn ".bin/brightness.sh inc")
+      spawn "{{ x_scripts_dir }}/brightness.sh inc")
   , ((none, xF86XK_MonBrightnessDown      ),
-      spawn ".bin/brightness.sh dec")
+      spawn "{{ x_scripts_dir }}/brightness.sh dec")
   ] ++
 
   -- Switch workspaces and move windows between workspaces
@@ -234,7 +234,7 @@ main = do
   otherBars <- mapM (\i -> spawn $ otherBar ++ " -x " ++ show i) [0..n - 1]
 
   -- spawn stuff loading after the window manager
-  spawn ".bin/start-session.sh"
+  spawn "{{ x_scripts_dir }}/start-session.sh"
 
   xmonad $ ewmh $ def
     { focusedBorderColor = "#404040"

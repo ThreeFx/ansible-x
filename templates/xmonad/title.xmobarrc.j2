@@ -21,10 +21,10 @@ Config { font                = "xft:LiberationMono:size=10"
                      , ("de", "DE")
                      ]
            , Run Weather "LSZH" ["-t", "<station>: <tempC>C"] 6000
-           , Run Com ".bin/spotify-control.py" ["metadata"] "spotify" 100
+           , Run Com "{{ x_scripts_dir }}/spotify-control.py" ["metadata"] "spotify" 100
 {% if mail_accounts != [] %}
-           , Run Com ".bin/mail.sh" ["new"] "newmail" 100
-           , Run Com ".bin/mail.sh" ["unread"] "unreadmail" 600
+           , Run Com "{{ x_scripts_dir }}/mail.sh" ["new"] "newmail" 100
+           , Run Com "{{ x_scripts_dir }}/mail.sh" ["unread"] "unreadmail" 600
 {% endif %}
            , Run StdinReader
            ]

@@ -35,19 +35,19 @@ Config { font                = "xft:LiberationMono:size=10"
                             , "-m", "1"
                             , "-p", "3"
                             ] 600
-           , Run Com ".bin/pulse-volume.sh" ["show"] "volume" 50
-           , Run Com ".bin/trayer-padding.sh" [] "trayerpad" 10
+           , Run Com "{{ x_scripts_dir }}/pulse-volume.sh" ["show"] "volume" 50
+           , Run Com "{{ x_scripts_dir }}/trayer-padding.sh" [] "trayerpad" 10
 {% if x_has_battery %}
            , Run Battery ["-t", "<left>% (<timeleft>)"] 600
 {% endif %}
            -- for eth0 or wlp58s0
-           , Run Com ".bin/network.sh" ["-s"] "net" 100
-           , Run Com ".bin/network.sh" ["-ip"] "ip" 100
+           , Run Com "{{ x_scripts_dir }}/network.sh" ["-s"] "net" 100
+           , Run Com "{{ x_scripts_dir }}/network.sh" ["-ip"] "ip" 100
 
-           --, Run Com ".bin/check.sh" ["cloud-backup-daemon", "conn", "dis"] "backup" 100
-           --, Run Com ".bin/check.sh" ["cloud-drive-daemon", "conn", "dis"] "drive" 100
-           , Run Com ".bin/check.sh" ["redshift", "on", "off"] "redshift" 100
-           , Run Com ".bin/check.sh" ["xautolock", "on", "off"] "autolock" 100
+           --, Run Com "{{ x_scripts_dir }}/check.sh" ["cloud-backup-daemon", "conn", "dis"] "backup" 100
+           --, Run Com "{{ x_scripts_dir }}/check.sh" ["cloud-drive-daemon", "conn", "dis"] "drive" 100
+           , Run Com "{{ x_scripts_dir }}/check.sh" ["redshift", "on", "off"] "redshift" 100
+           , Run Com "{{ x_scripts_dir }}/check.sh" ["xautolock", "on", "off"] "autolock" 100
            --, Run Mpris2 "spotify" ["-t", "<title> - <artist>"] 15
            , Run StdinReader
            ]
