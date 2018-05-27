@@ -103,8 +103,8 @@
 
 - name: Configure scripts which require templating
   template:
-    src: "scripts/{{ item }}.sh.j2"
-    dest: "{{ x_scripts_dir }}/{{ item }}.sh"
+    src: "scripts/{{ item }}.j2"
+    dest: "{{ x_scripts_dir }}/{{ item }}"
     mode: 0755
   with_items:
     - autolock.sh
