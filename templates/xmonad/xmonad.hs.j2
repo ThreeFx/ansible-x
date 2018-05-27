@@ -55,7 +55,7 @@ topHalfFloating  = customFloating $ W.RationalRect 0      0      1      (1/2)
 centerFloat r    = customFloating $ W.RationalRect r      r      (1-2*r) (1-2*r)
 centerBigFloat   = centerFloat (1/10)
 
-myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+myWorkspaces = ["1", "7", "2", "3", "4", "5", "6", "8", "9", "10"]
 scratchpads  =
   [ NS "pass"  "keepassx" (className =? "Keepassx") (customFloating $ W.RationalRect (2/5) (1/10) (1/2) (8/10))
   , NS "rocketchat" "rocketchat" (className =? "Rocket.Chat+") centerBigFloat
@@ -218,7 +218,7 @@ myKeys conf@(XConfig { XMonad.modMask = modm, XMonad.terminal = term }) = M.from
 
   -- Switch workspaces and move windows between workspaces
   [ ((modm .|. mask, key), windows $ fn index)
-    | (index, key) <- zip myWorkspaces $ [xK_1 .. xK_9] ++ [xK_0]
+    | (index, key) <- zip myWorkspaces $ [xK_1, xK_7] ++ xK_2 .. xK_6] ++ [xK_8, xK_9] ++ [xK_0]
     , (fn, mask)   <- [(W.greedyView, none), (W.shift, shift)]
   ] ++
 
