@@ -21,7 +21,8 @@
     update_cache: yes
   with_items: "{{ x_packages + x_extra_packages }}"
 
-- name: "Install {{ item.name }}"
+- name: "Install non-packaged debs"
+  become: True
   apt:
     deb: "{{ item.url }}"
   with_items:
