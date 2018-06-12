@@ -6,6 +6,8 @@ x_extra_packages: []
 x_extra_keys: []
 x_extra_repositories: []
 
+x_extra_deb: []
+
 x_enable_autolock: False
 x_has_battery: False
 

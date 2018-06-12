@@ -21,6 +21,12 @@
     update_cache: yes
   with_items: "{{ x_packages + x_extra_packages }}"
 
+- name: "Install {{ item.name }}"
+  apt:
+    deb: "{{ item.url }}"
+  with_items:
+    - "{{ x_extra_deb }}"
+
 - name: "Set default editor to '{{ x_editor }}'"
   become: True
   shell: "update-alternatives --set editor {{ x_editor }}"
