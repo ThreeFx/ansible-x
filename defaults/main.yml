@@ -10,6 +10,11 @@ x_extra_deb: []
 
 x_enable_autolock: False
 x_has_battery: False
+x_bat_low_watt: 6
+x_bat_hi_watt: 50
+x_bat_low_color: red
+x_bat_hi_color: green
+x_bat_charge_color: blue
 
 x_keepass_content: ""
 

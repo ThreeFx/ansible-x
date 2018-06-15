@@ -38,7 +38,13 @@ Config { font                = "xft:LiberationMono:size=10"
            , Run Com "{{ x_scripts_dir }}/pulse-volume.sh" ["show"] "volume" 50
            , Run Com "{{ x_scripts_dir }}/trayer-padding.sh" [] "trayerpad" 10
 {% if x_has_battery %}
-           , Run Battery ["-t", "<left>% (<timeleft>)"] 600
+           , Run Battery    [ "-t", "<left>% (<timeleft>)"
+                            , "-L", "{{ x_bat_low_watt }}"
+                            , "-H", "{{ x_bat_hi_watt }}"
+                            , "-l", "{{ x_bat_low_color }}"
+                            , "-h", "{{ x_bat_hi_color }}"
+                            -- , "-p", "{{ x_bat_charge_color }}"
+                            ] 600
 {% endif %}
            -- for eth0 or wlp58s0
            , Run Com "{{ x_scripts_dir }}/network.sh" ["-s"] "net" 100
