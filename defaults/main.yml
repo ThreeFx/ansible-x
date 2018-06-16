@@ -18,6 +18,8 @@ x_bat_charge_color: blue
 
 x_keepass_content: ""
 
+x_pactl_sink: 0
+
 # Redshift setting (location: Zurich)
 x_redshift_temp_day: 4500
 x_redshift_temp_night: 3700

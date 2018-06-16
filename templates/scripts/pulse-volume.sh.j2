@@ -4,7 +4,7 @@ ACTION=$1
 set -e
 
 #CURSINK=`pactl list sinks short | grep RUNNING | egrep -o '^[0-9]+'`
-CURSINK=0
+CURSINK={{ x_pactl_sink }}
 CURVOL=`pactl list sinks | grep -i '^\svolume' | awk -F ' ' '{print $5}' | awk -F '%' '{print $1}' | head -1`
 MUTE=`pactl list sinks | grep -i '^\smute' | egrep -o '[a-z]+$' | head -1`
 
