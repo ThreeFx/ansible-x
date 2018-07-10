@@ -6,7 +6,11 @@ URxvt.keysym.C-Down: font-size:decrease
 URxvt.keysym.C-equal: font-size:reset
 URxvt.keysym.C-slash: font-size:show
 
-URxvt.keysym.C-BackSpace: \033[33~
+URxvt.keysym.C-BackSpace: \033[7;5~
+URxvt.keysym.Control-Up: \033[1;5A
+URxvt.keysym.Control-Down: \033[1;5B
+URxvt.keysym.Control-Left: \033[1;5D
+URxvt.keysym.Control-Right: \033[1;5C
 
 URxvt*font: xft:Liberation Mono:size=12
 
