@@ -3,7 +3,7 @@
 urxvtd -f
 redshift &
 
-{{ x_scripts_dir }}/screen.sh left
+{{ x_scripts_dir }}/screen.sh {{ x_ext_display_pos }}
 
 feh --bg-fill --randomize wallpaper/current/
 
@@ -26,5 +26,9 @@ export GPG_AGENT_INFO SSH_AUTH_SOCK
 
 xsetroot -cursor_name left_ptr
 compton -b
+
+{% for line in x_extra_xsession_lines %}
+{{ line }}
+{% endfor %}
 
 exec /usr/bin/xmonad

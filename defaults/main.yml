@@ -27,6 +27,7 @@ x_redshift_lat: 47.40769
 x_redshift_lon: 8.50454
 
 x_screen_locker: slock
+x_ext_display_pos: up
 
 # Copy these from the base role
 x_username: "{{ base_user.name }}"

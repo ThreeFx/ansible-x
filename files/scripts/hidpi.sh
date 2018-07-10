@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # set dpi for HiDPI display and extend non-HiDPI external display above HiDPI internal display
 
 DPI=144
@@ -10,15 +10,13 @@ do
     xrandr --output $screen --off
 done
 
-EXT=`xrandr --current | sed 's/^\(.*\) connected.*$/\1/p;d' | grep -v ^eDP | head -n 1`
-INT=`xrandr --current | sed 's/^\(.*\) connected.*$/\1/p;d' | grep -v ^DP | grep -v ^HDMI | head -n 1`
+INT=`xrandr --current | sed 's/^\(.*\) connected.*$/\1/p;d' | grep -v ^eDP | head -n 1`
+EXT=`xrandr --current | sed 's/^\(.*\) connected.*$/\1/p;d' | grep -v ^DP | grep -v ^HDMI | head -n 1`
 
 # set dpi
 xrandr --dpi $DPI
 
-if [ $EXT ]
-then
-
+if [[ -n $EXT ]]; then
     dim_int=`xrandr --current | grep -A 1 "^$INT connected" | head -n 2 | tail -n 1 | sed 's/^\s*\([0-9]*x[0-9]*\).*$/\1/'`
     dim_ext=`xrandr --current | grep -A 1 "^$EXT connected" | head -n 2 | tail -n 1 | sed 's/^\s*\([0-9]*x[0-9]*\).*$/\1/'`
 
@@ -39,10 +37,13 @@ then
     #echo 'xrandr --output '$INT' --primary --auto --pos '$ext_w'x0 --scale 1x1  --right-of '$EXT' --auto --scale '$FACTOR'x'$FACTOR' --pos 0x0'
     if [[ $1 = "ext" ]]; then
         xrandr --output "${EXT}" --primary --auto --scale ${FACTOR}x${FACTOR} --pos 0x0
-        xrandr --output "${INT}" --auto --pos ${ext_w}x0 --scale 1x1
+        xrandr --output "${INT}" --auto --pos 0x0 --scale 1x1
     else
-        #xrandr --output "${INT}" --primary --auto --pos ${ext_w}x$(($ext_h - $int_h)) --scale 1x1
-        xrandr --output "${INT}" --primary --auto --pos ${ext_w}x0 --scale 1x1
-        xrandr --output "${EXT}" --auto --scale ${FACTOR}x${FACTOR} --pos 0x0
+        #echo xrandr --output "${INT}" --primary --above "${EXT}" --scale ${FACTOR}x${FACTOR} --panning ${ext_w}x${ext_h}+0+${int_h}
+        #xrandr --output "${INT}" --primary --above "${EXT}" --scale ${FACTOR}x${FACTOR} --panning ${ext_w}x${ext_h}+0+${int_h} 
+        echo xrandr --output "${INT}" --primary --pos 0x0
+        echo xrandr --output "${EXT}" --scale ${FACTOR}x${FACTOR} --pos 0x${int_h} --panning ${ext_w}x${ext_h}+0+${int_h} --fb ${ext_w}x${ext_h}+0+${int_h}
+        xrandr --output "${INT}" --primary --pos 0x0 --scale 1x1
+        xrandr --output "${EXT}" --scale ${FACTOR}x${FACTOR} --pos 0x${int_h} --panning ${ext_w}x${ext_h}+0+${int_h}
     fi
 fi
