@@ -50,7 +50,7 @@ command = stringProperty "WM_COMMAND"
 -- short defaults
 followMouseFocus = False
 myTerm           = "/usr/bin/urxvtc"
-myBrowser        = "/usr/bin/chromium"
+myBrowser        = "/usr/bin/firefox-esr"
 topHalfFloating  = customFloating $ W.RationalRect 0      0      1      (1/2)
 centerFloat r    = customFloating $ W.RationalRect r      r      (1-2*r) (1-2*r)
 centerBigFloat   = centerFloat (1/10)
@@ -163,7 +163,7 @@ myKeys conf@(XConfig { XMonad.modMask = modm, XMonad.terminal = term }) = M.from
   , ((modm,           xK_s),
       namedScratchpadAction scratchpads "term")
   , ((modm .|. shift, xK_space),
-      spawn "rofi -show run")
+      spawn "zsh -c 'rofi -show run'")
   , ((modm,           xK_p),
       namedScratchpadAction scratchpads "pass")
   --, ((modm,           xK_space),
