@@ -5,7 +5,7 @@ x_packages:
   - feh
     # Sadly, firefox 57.0 isn't stable yet
   - firefox-esr
-  - keepassx
+  - keepassxc
   - fonts-liberation
   - libghc-xmonad-contrib-dev
   - libghc-xmonad-dev
